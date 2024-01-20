@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import (QApplication, QWidget, QListWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QFileDialog)
 import os
-
+from imageProcessor import ImageProcessor
 
 
 app = QApplication([])
@@ -59,6 +59,15 @@ def showFolder():
     list_widget.addItems(filenames)
 
 btn_folder.clicked.connect(showFolder)
+
+workImage = ImageProcessor
+
+def showChosenItem():
+    filename = list_widget.currentItem().text()
+    workImage.loadImage(filename, workdir)
+    workImage.showImage(os.path.join(workdir, filename), image)
+
+list_widget.currentRowChanged.connect(showChosenItem)
 
 window.show()
 
